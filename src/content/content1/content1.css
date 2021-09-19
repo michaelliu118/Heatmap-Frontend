@@ -1,0 +1,53 @@
+.highlight {
+    background:rgb(216, 192, 57) !important;
+}
+
+.highlightFirstHalf {
+    background: linear-gradient(to right, rgb(216, 192, 57) 30%, rgb(155, 154, 154) 71%) !important;
+}
+
+.heatmap-year-legend-container {
+    display: flex;
+    align-items: center;
+}
+
+.heatmap-title-span {
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.year_dropdown_bar {
+    margin-left:10px;
+    height: 35px;
+    width: 90px;
+    text-align-last: center;
+    border-color: rgb(9, 112, 9);
+    border-radius: 6px;
+    border-width: 2px;
+    font-size: 20px;
+}
+
+.date-selection-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-left: 20px;
+}
+
+.generate-heatmap-button {
+    width: 90px;
+    height: 50px;
+    background-color:rgb(76, 136, 17);
+    border-radius: 5px;
+    margin-left: 25px;
+    color: white;
+}
+
+.generate-heatmap-button-loading {
+    width: 90px;
+    height: 50px;
+    background-color:rgb(143, 48, 25);
+    border-radius: 5px;
+    margin-left: 25px;
+    color: white;
+}

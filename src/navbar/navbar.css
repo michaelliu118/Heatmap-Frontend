@@ -1,0 +1,32 @@
+.nav-margin{
+  padding: 8px 3%;
+  background-color: #e0e0e0;
+  flex-flow: row;
+  justify-content: flex-start;
+  display: flex;
+  align-items: center;
+}
+
+.nav-brand {
+  align-items: center;
+  display: flex;
+  padding-top: 0.3125rem;
+  padding-bottom: 0.3125rem;
+  margin-right: 1rem;
+  font-size: 1.25rem;
+  line-height: inherit;
+  color: black;
+  text-decoration: none !important;
+}
+
+.nav-link {
+  margin-left: 60px;
+  font-weight: bold;
+  color: rgb(79, 155, 206);
+
+}
+
+.nav-link:hover {
+  background-color:rgb(177, 185, 52); 
+  color: white; 
+  }
