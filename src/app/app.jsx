@@ -38,7 +38,7 @@ function App() {
   function Display() {
     if (initial_page === 'DIR'){
       return (
-      <HeatmapWindow name={'DIR'} table_html={json_object===0 ? "" : json_object['DIR']} colorBar_html={json_object===0 ? "" : json_object['DIR_colorBar']}/>
+      <HeatmapWindow name={'DIR'} table_html={json_object===0 ? "" : json_object['DIR']} colorBar_html={json_object===0 ? "<div />" : json_object['DIR_colorBar']}/>
       );
     } else if (initial_page==='IR'){
       return (
