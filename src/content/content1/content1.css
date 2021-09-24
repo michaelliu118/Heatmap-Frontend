@@ -41,13 +41,8 @@
 
 .ac_model_dropdown_bar {
     margin-left:20px;
-    height: 35px;
-    width: 100px;
-    text-align-last: center;
-    border-color: rgb(9, 112, 9);
-    border-radius: 6px;
-    border-width: 2px;
-    font-size: 15px;
+    height: 40px;
+    width: 350px;
 }
 
 .ac_model_dropdown_bar_on_change {
@@ -69,6 +64,14 @@
     margin-left: 20px;
 }
 
+.model-selection-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-left: 20px;
+    margin-bottom: 5px;
+}
+
 .generate-heatmap-button {
     width: 90px;
     height: 50px;
@@ -79,6 +82,15 @@
 }
 
 .generate-heatmap-button-loading {
+    width: 90px;
+    height: 50px;
+    background-color:rgb(143, 48, 25);
+    border-radius: 5px;
+    margin-left: 25px;
+    color: white;
+}
+
+.choose-model-heatmap-button-loading {
     width: 90px;
     height: 50px;
     background-color:rgb(143, 48, 25);
