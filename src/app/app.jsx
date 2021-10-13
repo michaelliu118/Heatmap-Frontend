@@ -9,7 +9,7 @@ import Row from 'react-bootstrap/Row';
 import Card from '../card'
 
 function App() {
-  const selections = ['DIR', 'IR'];
+  const selections = ['DIR', 'REMOVAL_RATE', 'IR'];
   const [initial_page, updateNav] = useState(selections[0])
   const [json_object, update_json_object] = useState(0);
 
@@ -33,16 +33,26 @@ function App() {
 
   //Display different heatmaps
   function Display() {
-    if (initial_page === 'DIR'){
-      return (
-      <HeatmapWindow name={'DIR'} table_html={json_object===0 ? "<table />" : json_object['DIR']} 
-      colorBar_html={json_object===0 ? "<div />" : json_object['DIR_colorBar']} />
-      );
-    } else if (initial_page==='IR'){
-      return (
-      <div>
-        woshimama
-      </div>
+    switch (initial_page){
+      case 'DIR':
+        return (
+          <HeatmapWindow name={'DIR'} table_html={json_object===0 ? "<table />" : json_object['DIR']} 
+          colorBar_html={json_object===0 ? "<div />" : json_object['DIR_colorBar']} />
+        );
+        
+      case 'REMOVAL_RATE':
+        return (
+          <div>
+            <HeatmapWindow name={'REMOVAL_RATE'} table_html={json_object===0 ? "<table />" : json_object['REMOVAL_RATE']} 
+            colorBar_html={json_object===0 ? "<div />" : json_object['REMOVAL_RATE_colorBar']} />
+          </div>
+        );
+
+      case 'IR':
+        return (
+          <div>
+            woshibaba
+          </div>
         );
     }
   }

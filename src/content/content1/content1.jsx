@@ -11,7 +11,7 @@ function HeatmapWindow(props) {
     const [generate_button_state, update_generate_button_state] = useState([false, 'Generate Heatmap']);
     const [ac_model_Options, neverToUse] = useState([
          { value: ['CRJ700'], label: 'CRJ700/900/1000', isFixed: true },
-         { value: ['RJ', 'CRJ'], label: 'CRJ100/200', isFixed: true }])
+         { value: ['RJ', 'CRJ'], label: 'CRJ100/200', isFixed: true }]);
     const [ac_model_state, update_ac_model_state] = useState([ac_model_Options[0]]);
 
     function ac_model_changeHandler(selectedOption){
@@ -23,7 +23,7 @@ function HeatmapWindow(props) {
     //Create an array of past five years that is to be used at year selection dropdown bar
     const current_year = new Date().getFullYear();
     var year_dropdown_bar = [];
-    for (let i=5; i>0; i--){
+    for (let i=4; i>=0; i--){
       year_dropdown_bar.push(current_year-i);
     }
 
