@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 import './content1.css';
+import apiFetcher from './../../utils/apiFetchers'
 
 
 function HeatmapWindow(props) {

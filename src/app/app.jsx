@@ -2,11 +2,12 @@ import React from 'react'
 import './app.css';
 import Navigation from '../navbar'
 import { useState, useEffect } from 'react';
-import HeatmapWindow from '../content/content1/content1';
+import HeatmapWindow from '../content/content1/content1.jsx';
 import Searchbar from '../searchbar'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row';
-import Card from '../card'
+import Card from '../card';
+import apiFetcher from '../utils/apiFetchers';
 
 function App() {
   const selections = ['DIR', 'REMOVAL_RATE', 'IR'];
