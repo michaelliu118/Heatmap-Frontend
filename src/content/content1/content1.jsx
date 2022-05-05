@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Select from 'react-select';
 import './content1.css';
-import apiFetcher from './../../utils/apiFetchers'
+import { io } from 'socket.io-client'
 
 
 function HeatmapWindow(props) {
@@ -14,6 +14,8 @@ function HeatmapWindow(props) {
          { value: ['CRJ700'], label: 'CRJ700/900/1000', isFixed: true },
          { value: ['RJ', 'CRJ'], label: 'CRJ100/200', isFixed: true }]);
     const [ac_model_state, update_ac_model_state] = useState([ac_model_Options[0]]);
+    //Create the reference hook for socket
+    const socketClientRef = useRef();
 
     function ac_model_changeHandler(selectedOption){
       update_ac_model_state(selectedOption);
@@ -54,9 +56,22 @@ function HeatmapWindow(props) {
         showing_year_dropdown_bar = year.value;
         year.className = 'year_dropdown_bar';
         month.className = 'year_dropdown_bar'
-        console.log('wehhh'+showing_month_dropdown_bar);
+        console.log(showing_month_dropdown_bar);
       }
-      update_dropdown_current_value();}, [table_html])
+      update_dropdown_current_value();}, [table_html]);
+
+
+    //serve to connect to the back end when initialized
+    useEffect(()=>{
+      const socket = io('http://localhost:5000/subsequent', {
+        withCredentials: true,
+        reconnectionDelayMax: 10000
+      });
+
+      //passing socket instance to the reference object
+      socketClientRef.current = socket;
+      console.log('socket connected!!!');
+    }, []);
 
   
     function dropdown_onChange(id){
@@ -76,6 +91,8 @@ function HeatmapWindow(props) {
         }
       }
     }
+
+
 
     //This function is used to fetch heatmap when user click on generate button
     async function fetching_heatmap(){
@@ -105,31 +122,44 @@ function HeatmapWindow(props) {
       button.className = 'generate-heatmap-button-loading';
       update_generate_button_state([true, "Loading"]);
 
-      const data = new FormData();
-      data.append('year', current_selected_year);
-      data.append('month', current_selected_month);
-      data.append('metric', props.name);
-      data.append('ac_model', current_selected_ac_model);
+      // const data = new FormData();
+      // data.append('year', current_selected_year);
+      // data.append('month', current_selected_month);
+      // data.append('metric', props.name);
+      // data.append('ac_model', current_selected_ac_model);
 
-      //fetch the heatmp of past 12 month from select month
-      const post = await fetch('http://localhost:5000/', {
-        method:'POST',
-        body: data,
-        credentials:'include',
-        mode: 'cors',
-      });
+      // //fetch the heatmp of past 12 month from select month
+      // const post = await fetch('http://localhost:5000/', {
+      //   method:'POST',
+      //   body: data,
+      //   credentials:'include',
+      //   mode: 'cors',
+      // });
 
-      //handle exception
-      if (post.status !== 200){
-        return;
+      // //handle exception
+      // if (post.status !== 200){
+      //   return;
+      // }
+      // const response = await post.json();
+      const data = {
+        'year': current_selected_year,
+        'month': current_selected_month,
+        'metric': props.name,
+        'ac_model': current_selected_ac_model
       }
-      const response = await post.json();
-      update_table_html(response['heatmap']);
-      update_colorBar_html(response['colorBar']);
-  
+
+      socketClientRef.current.emit('subsequent_request', data);
+      socketClientRef.current.on('subsequent_request', (response)=>{
+        update_table_html(response['heatmap']);
+        update_colorBar_html(response['colorBar']);
+        update_generate_button_state([false, 'Generate Heatmap'])
+        button.className = 'generate-heatmap-button';
+      });
+      // update_table_html(response['heatmap']);
+      // update_colorBar_html(response['colorBar']);
       // Change the button back to original
-      update_generate_button_state([false, 'Generate Heatmap'])
-      button.className = 'generate-heatmap-button';
+      // update_generate_button_state([false, 'Generate Heatmap'])
+      // button.className = 'generate-heatmap-button';
     }
     
     return (
